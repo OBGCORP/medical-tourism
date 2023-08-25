@@ -7,26 +7,18 @@ import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.util.Date;
-
 @Entity
 @Table
 @Data
-public class FlightInfo extends BaseEntity {
+public class Accommodation extends BaseEntity {
     @Column(nullable = false)
-    private String airline;
+    private String name;
     @Column(nullable = false)
-    private Integer flightNumber;
+    private String address;
     @Column(nullable = false)
-    private String departureLocation;
-    @Column(nullable = false)
-    private String arrivalLocation;
-    @Column(nullable = false)
-    private Date date;
-    @Column(nullable = false)
-    private Integer price;
+    private Integer cost;
     @OneToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "patient_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Patient patient;

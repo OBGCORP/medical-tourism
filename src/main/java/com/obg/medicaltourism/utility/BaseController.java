@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class BaseController<Entity extends BaseEntity, DTO extends BaseDTO, RequestDTO extends BaseDTO, Mapper extends IBaseMapper<Entity, DTO, RequestDTO>, Repository extends IBaseRepository<Entity>, Service extends BaseService<Entity, DTO, RequestDTO, Mapper, Repository>> {
+public abstract class BaseController<Entity extends BaseEntity, DTO extends BaseDTO, RequestDTO extends BaseDTO, Mapper extends BaseMapper<Entity, DTO, RequestDTO>, Repository extends BaseRepository<Entity>, Service extends BaseService<Entity, DTO, RequestDTO, Mapper, Repository>> {
     protected abstract Service getService();
 
     @PostMapping

@@ -1,7 +1,10 @@
 package com.obg.medicaltourism.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.obg.medicaltourism.utility.BaseEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -12,9 +15,15 @@ import java.util.List;
 @Table
 @Data
 public class Clinic extends BaseEntity {
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String address;
     private BigDecimal bankAccountBalance;
+    @OneToMany(mappedBy = "operation_id")
+    @JsonIgnore
     private List<Operation> operations;
+    @OneToMany(mappedBy = "physician_id")
+    @JsonIgnore
     private List<Physician> physicians;
 }

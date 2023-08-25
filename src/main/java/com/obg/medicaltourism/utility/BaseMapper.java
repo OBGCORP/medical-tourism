@@ -2,7 +2,7 @@ package com.obg.medicaltourism.utility;
 
 import java.util.List;
 
-public interface IBaseMapper<Entity extends BaseEntity, DTO extends BaseDTO, RequestDTO extends BaseDTO> {
+public interface BaseMapper<Entity extends BaseEntity, DTO extends BaseDTO, RequestDTO extends BaseDTO> {
 
     public DTO entityToDTO(Entity entity);
 

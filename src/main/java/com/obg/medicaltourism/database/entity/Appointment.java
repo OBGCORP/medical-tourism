@@ -1,9 +1,11 @@
 package com.obg.medicaltourism.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.obg.medicaltourism.utility.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
 
@@ -11,9 +13,26 @@ import java.util.Date;
 @Table
 @Data
 public class Appointment extends BaseEntity {
+    @Column(nullable = false)
     private Date operationDate;
+    @OneToOne
+    @JoinColumn(name = "clinic_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Clinic clinic;
+    @OneToOne
+    @JoinColumn(name = "operation_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Operation operation;
+    @OneToOne
+    @JoinColumn(name = "physician_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Physician physician;
+    @OneToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Patient patient;
 }

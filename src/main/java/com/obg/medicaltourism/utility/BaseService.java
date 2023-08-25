@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class BaseService<Entity extends BaseEntity, DTO extends BaseDTO, RequestDTO extends BaseDTO, Mapper extends IBaseMapper<Entity, DTO, RequestDTO>, Repository extends IBaseRepository<Entity>> {
+public abstract class BaseService<Entity extends BaseEntity, DTO extends BaseDTO, RequestDTO extends BaseDTO, Mapper extends BaseMapper<Entity, DTO, RequestDTO>, Repository extends BaseRepository<Entity>> {
 
     public abstract Mapper getMapper();
 
