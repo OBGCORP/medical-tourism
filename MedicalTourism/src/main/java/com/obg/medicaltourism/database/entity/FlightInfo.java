@@ -1,5 +1,6 @@
 package com.obg.medicaltourism.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.obg.medicaltourism.utility.BaseEntity;
 import jakarta.persistence.*;
@@ -22,6 +23,7 @@ public class FlightInfo extends BaseEntity {
     @Column(nullable = false)
     private String arrivalLocation;
     @Column(nullable = false)
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date date;
     @Column(nullable = false)
     private Integer price;

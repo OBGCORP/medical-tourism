@@ -1,5 +1,6 @@
 package com.obg.medicaltourism.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.obg.medicaltourism.utility.BaseEntity;
 import jakarta.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Data
 public class Appointment extends BaseEntity {
     @Column(nullable = false)
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date operationDate;
     @OneToOne
     @JoinColumn(name = "clinic_id", nullable = false)
