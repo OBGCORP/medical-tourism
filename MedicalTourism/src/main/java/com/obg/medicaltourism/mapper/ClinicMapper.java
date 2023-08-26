@@ -1,6 +1,9 @@
 package com.obg.medicaltourism.mapper;
 
 import com.obg.medicaltourism.database.entity.Clinic;
+import com.obg.medicaltourism.database.repository.ClinicRepository;
+import com.obg.medicaltourism.database.repository.OperationRepository;
+import com.obg.medicaltourism.database.repository.PhysicianRepository;
 import com.obg.medicaltourism.model.ClinicDTO;
 import com.obg.medicaltourism.model.requestDTO.ClinicRequestDTO;
 import com.obg.medicaltourism.utility.BaseMapper;
@@ -13,30 +16,44 @@ import java.util.List;
 
 @Component
 public class ClinicMapper implements BaseMapper<Clinic, ClinicDTO, ClinicRequestDTO> {
-
+    private final ClinicRepository clinicRepository;
+    private final PhysicianRepository physicianRepository;
+    private final OperationRepository operationRepository;
     private final PhysicianMapper physicianMapper;
     private final OperationMapper operationMapper;
 
     @Autowired
     @Lazy
-    public ClinicMapper(PhysicianMapper physicianMapper, OperationMapper operationMapper) {
+    public ClinicMapper(PhysicianMapper physicianMapper,
+                        OperationMapper operationMapper,
+                        PhysicianRepository physicianRepository,
+                        OperationRepository operationRepository,
+                        ClinicRepository clinicRepository) {
         this.physicianMapper = physicianMapper;
         this.operationMapper = operationMapper;
+        this.operationRepository = operationRepository;
+        this.physicianRepository = physicianRepository;
+        this.clinicRepository = clinicRepository;
     }
 
     @Override
-    public ClinicDTO entityToDTO(Clinic clinic) {
-        ClinicDTO clinicDTO = new ClinicDTO();
-        clinicDTO.setUuid(clinic.getUuid());
-        clinicDTO.setId(clinic.getId());
-        clinicDTO.setCreationDate(clinic.getCreationDate());
-        clinicDTO.setUpdatedDate(clinic.getUpdatedDate());
-        clinicDTO.setName(clinic.getName());
-        clinicDTO.setAddress(clinic.getAddress());
-        clinicDTO.setBankAccountBalance(clinic.getBankAccountBalance());
-        clinicDTO.setPhysicians(physicianMapper.entityListToDTOList(clinic.getPhysicians()));
-        clinicDTO.setOperations(operationMapper.entityListToDTOList(clinic.getOperations()));
-        return clinicDTO;
+    public ClinicDTO entityToDTO(Clinic clinicInit) {
+        Clinic clinic = clinicRepository.findById(clinicInit.getId()).orElse(null);
+        if (clinic != null) {
+            ClinicDTO clinicDTO = new ClinicDTO();
+            clinicDTO.setUuid(clinic.getUuid());
+            clinicDTO.setId(clinic.getId());
+            clinicDTO.setCreationDate(clinic.getCreationDate());
+            clinicDTO.setUpdatedDate(clinic.getUpdatedDate());
+            clinicDTO.setName(clinic.getName());
+            clinicDTO.setAddress(clinic.getAddress());
+            clinicDTO.setBankAccountBalance(clinic.getBankAccountBalance());
+            clinicDTO.setPhysicians(physicianMapper.entityListToDTOList(clinic.getPhysicians()));
+            clinicDTO.setOperations(operationMapper.entityListToDTOList(clinic.getOperations()));
+            return clinicDTO;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -49,8 +66,10 @@ public class ClinicMapper implements BaseMapper<Clinic, ClinicDTO, ClinicRequest
         clinic.setName(dto.getName());
         clinic.setAddress(dto.getAddress());
         clinic.setBankAccountBalance(dto.getBankAccountBalance());
-        clinic.setPhysicians(physicianMapper.dtoListToEntityList(dto.getPhysicians()));
-        clinic.setOperations(operationMapper.dtoListToEntityList(dto.getOperations()));
+        if (dto.getPhysicians() != null && dto.getOperations() != null) {
+            clinic.setPhysicians(physicianMapper.dtoListToEntityList(dto.getPhysicians()));
+            clinic.setOperations(operationMapper.dtoListToEntityList(dto.getOperations()));
+        }
         return clinic;
     }
 
