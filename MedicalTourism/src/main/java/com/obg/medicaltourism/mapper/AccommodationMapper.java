@@ -77,7 +77,7 @@ public class AccommodationMapper implements BaseMapper<Accommodation, Accommodat
         accommodation.setName(accommodationRequestDTO.getName());
         accommodation.setAddress(accommodationRequestDTO.getAddress());
         accommodation.setCost(accommodationRequestDTO.getCost());
-        accommodation.setPatient(patientMapper.requestDTOToEntity(accommodationRequestDTO.getPatient()));
+        accommodation.setPatient(patientMapper.dtoToEntity(accommodationRequestDTO.getPatient()));
         return accommodation;
     }
 
@@ -95,7 +95,6 @@ public class AccommodationMapper implements BaseMapper<Accommodation, Accommodat
         accommodation.setName(accommodationRequestDTO.getName());
         accommodation.setAddress(accommodationRequestDTO.getAddress());
         accommodation.setCost(accommodationRequestDTO.getCost());
-        accommodation.setPatient(patientMapper.requestDTOToEntity(accommodationRequestDTO.getPatient()));
         return accommodation;
     }
 }

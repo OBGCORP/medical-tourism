@@ -1,5 +1,7 @@
 package com.obg.medicaltourism.model.requestDTO;
 
+import com.obg.medicaltourism.model.OperationDTO;
+import com.obg.medicaltourism.model.PhysicianDTO;
 import com.obg.medicaltourism.utility.BaseDTO;
 import lombok.Data;
 
@@ -11,6 +13,6 @@ public class ClinicRequestDTO extends BaseDTO {
     private String name;
     private String address;
     private BigDecimal bankAccountBalance;
-    private List<OperationRequestDTO> operations;
-    private List<PhysicianRequestDTO> physicians;
+    private List<OperationDTO> operations;
+    private List<PhysicianDTO> physicians;
 }

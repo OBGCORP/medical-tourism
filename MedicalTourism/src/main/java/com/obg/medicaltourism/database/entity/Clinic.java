@@ -20,10 +20,10 @@ public class Clinic extends BaseEntity {
     @Column(nullable = false)
     private String address;
     private BigDecimal bankAccountBalance;
-    @OneToMany(mappedBy = "operation_id")
+    @OneToMany
     @JsonIgnore
     private List<Operation> operations;
-    @OneToMany(mappedBy = "physician_id")
+    @OneToMany
     @JsonIgnore
     private List<Physician> physicians;
 }

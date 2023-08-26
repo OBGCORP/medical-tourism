@@ -80,7 +80,7 @@ public class FlightInfoMapper implements BaseMapper<FlightInfo, FlightInfoDTO, F
         flightInfo.setArrivalLocation(flightInfoRequestDTO.getArrivalLocation());
         flightInfo.setDate(flightInfoRequestDTO.getDate());
         flightInfo.setPrice(flightInfoRequestDTO.getPrice());
-        flightInfo.setPatient(patientMapper.requestDTOToEntity(flightInfoRequestDTO.getPatient()));
+        flightInfo.setPatient(patientMapper.dtoToEntity(flightInfoRequestDTO.getPatient()));
         return flightInfo;
     }
 
@@ -101,7 +101,6 @@ public class FlightInfoMapper implements BaseMapper<FlightInfo, FlightInfoDTO, F
         flightInfo.setArrivalLocation(flightInfoRequestDTO.getArrivalLocation());
         flightInfo.setDate(flightInfoRequestDTO.getDate());
         flightInfo.setPrice(flightInfoRequestDTO.getPrice());
-        flightInfo.setPatient(patientMapper.requestDTOToExistEntity(flightInfoRequestDTO.getPatient(), flightInfo.getPatient()));
         return flightInfo;
     }
 }

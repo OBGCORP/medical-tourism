@@ -26,7 +26,7 @@ public class FlightInfo extends BaseEntity {
     @Column(nullable = false)
     private Integer price;
     @OneToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "patient_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Patient patient;
