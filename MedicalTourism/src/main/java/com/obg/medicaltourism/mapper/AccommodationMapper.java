@@ -45,7 +45,9 @@ public class AccommodationMapper implements BaseMapper<Accommodation, Accommodat
         accommodation.setName(dto.getName());
         accommodation.setAddress(dto.getAddress());
         accommodation.setCost(dto.getCost());
-        accommodation.setPatient(patientMapper.dtoToEntity(dto.getPatient()));
+        if (dto.getPatient() != null) {
+            accommodation.setPatient(patientMapper.dtoToEntity(dto.getPatient()));
+        }
         return accommodation;
     }
 

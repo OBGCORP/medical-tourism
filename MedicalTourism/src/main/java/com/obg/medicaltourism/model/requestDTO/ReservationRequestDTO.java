@@ -9,10 +9,10 @@ import lombok.Data;
 
 @Data
 public class ReservationRequestDTO extends BaseDTO {
-    private FlightInfoDTO flightInfoRequestDTO;
+    private FlightInfoDTO flightInfoDTO;
     private Integer fl_seatNo;
-    private AppointmentDTO appointmentRequestDTO;
-    private AccommodationDTO accommodationRequestDTO;
+    private AppointmentDTO appointmentDTO;
+    private AccommodationDTO accommodationDTO;
     private Short acc_roomNo;
-    private PatientDTO patientRequestDTO;
+    private PatientDTO patientDTO;
 }
