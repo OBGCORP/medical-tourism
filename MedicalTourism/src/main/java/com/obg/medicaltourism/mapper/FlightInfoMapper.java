@@ -32,6 +32,7 @@ public class FlightInfoMapper implements BaseMapper<FlightInfo, FlightInfoDTO, F
         flightInfoDTO.setArrivalLocation(flightInfo.getArrivalLocation());
         flightInfoDTO.setDate(flightInfo.getDate());
         flightInfoDTO.setPrice(flightInfo.getPrice());
+        flightInfoDTO.setSeatNumber(flightInfo.getSeatNumber());
         if (flightInfo.getPatient() != null) {
             flightInfoDTO.setPatient(patientMapper.entityToDTO(flightInfo.getPatient()));
         }
@@ -51,6 +52,7 @@ public class FlightInfoMapper implements BaseMapper<FlightInfo, FlightInfoDTO, F
         flightInfo.setArrivalLocation(dto.getArrivalLocation());
         flightInfo.setDate(dto.getDate());
         flightInfo.setPrice(dto.getPrice());
+        flightInfo.setSeatNumber(dto.getSeatNumber());
         if (dto.getPatient() != null) {
             flightInfo.setPatient(patientMapper.dtoToEntity(dto.getPatient()));
         }
@@ -84,6 +86,7 @@ public class FlightInfoMapper implements BaseMapper<FlightInfo, FlightInfoDTO, F
         flightInfo.setArrivalLocation(flightInfoRequestDTO.getArrivalLocation());
         flightInfo.setDate(flightInfoRequestDTO.getDate());
         flightInfo.setPrice(flightInfoRequestDTO.getPrice());
+        flightInfo.setSeatNumber(flightInfoRequestDTO.getSeatNumber());
         if (flightInfoRequestDTO.getPatient() != null) {
             flightInfo.setPatient(patientMapper.dtoToEntity(flightInfoRequestDTO.getPatient()));
         }
@@ -107,6 +110,7 @@ public class FlightInfoMapper implements BaseMapper<FlightInfo, FlightInfoDTO, F
         flightInfo.setArrivalLocation(flightInfoRequestDTO.getArrivalLocation());
         flightInfo.setDate(flightInfoRequestDTO.getDate());
         flightInfo.setPrice(flightInfoRequestDTO.getPrice());
+        flightInfo.setSeatNumber(flightInfoRequestDTO.getSeatNumber());
         return flightInfo;
     }
 }

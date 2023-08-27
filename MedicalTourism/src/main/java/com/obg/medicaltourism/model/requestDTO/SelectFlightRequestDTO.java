@@ -1,14 +1,13 @@
 package com.obg.medicaltourism.model.requestDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.obg.medicaltourism.model.PatientDTO;
 import com.obg.medicaltourism.utility.BaseDTO;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class FlightInfoRequestDTO extends BaseDTO {
+public class SelectFlightRequestDTO extends BaseDTO {
     private String airline;
     private Integer flightNumber;
     private Short seatNumber;
@@ -17,5 +16,4 @@ public class FlightInfoRequestDTO extends BaseDTO {
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date date;
     private Integer price;
-    private PatientDTO patient;
 }

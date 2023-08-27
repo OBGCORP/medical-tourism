@@ -11,14 +11,16 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table
 @Data
 public class Accommodation extends BaseEntity {
-    @Column(nullable = false)
+    @Column
     private String name;
-    @Column(nullable = false)
+    @Column
     private String address;
-    @Column(nullable = false)
+    @Column
+    private Short roomNumber;
+    @Column
     private Integer cost;
     @OneToOne
-    @JoinColumn(name = "patient_id", nullable = false)
+    @JoinColumn(name = "patient_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Patient patient;

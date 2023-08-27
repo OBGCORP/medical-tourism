@@ -14,26 +14,26 @@ import java.util.Date;
 @Table
 @Data
 public class Appointment extends BaseEntity {
-    @Column(nullable = false)
+    @Column
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date operationDate;
     @OneToOne
-    @JoinColumn(name = "clinic_id", nullable = false)
+    @JoinColumn(name = "clinic_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Clinic clinic;
     @OneToOne
-    @JoinColumn(name = "operation_id", nullable = false)
+    @JoinColumn(name = "operation_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Operation operation;
     @OneToOne
-    @JoinColumn(name = "physician_id", nullable = false)
+    @JoinColumn(name = "physician_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Physician physician;
     @OneToOne
-    @JoinColumn(name = "patient_id", nullable = false)
+    @JoinColumn(name = "patient_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Patient patient;

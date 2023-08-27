@@ -1,7 +1,6 @@
 package com.obg.medicaltourism.mapper;
 
 import com.obg.medicaltourism.database.entity.Reservation;
-import com.obg.medicaltourism.database.repository.FlightInfoRepository;
 import com.obg.medicaltourism.database.repository.ReservationRepository;
 import com.obg.medicaltourism.model.ReservationDTO;
 import com.obg.medicaltourism.model.requestDTO.ReservationRequestDTO;
@@ -38,12 +37,18 @@ public class ReservationMapper implements BaseMapper<Reservation, ReservationDTO
             reservationDTO.setId(reservation.getId());
             reservationDTO.setUuid(reservation.getUuid());
             reservationDTO.setCreationDate(reservation.getCreationDate());
-            reservationDTO.setFlightInfoDTO(flightInfoMapper.entityToDTO(reservation.getFlightInfo()));
-            reservationDTO.setFl_seatNo(reservation.getFl_seatNo());
-            reservationDTO.setAppointmentDTO(appointmentMapper.entityToDTO(reservation.getAppointment()));
-            reservationDTO.setAccommodationDTO(accommodationMapper.entityToDTO(reservation.getAccommodation()));
-            reservationDTO.setAcc_roomNo(reservation.getAcc_roomNo());
-            reservationDTO.setPatientDTO(patientMapper.entityToDTO(reservation.getPatient()));
+            if (reservation.getFlightInfo() != null) {
+                reservationDTO.setFlightInfoDTO(flightInfoMapper.entityToDTO(reservation.getFlightInfo()));
+            }
+            if (reservation.getAppointment() != null) {
+                reservationDTO.setAppointmentDTO(appointmentMapper.entityToDTO(reservation.getAppointment()));
+            }
+            if (reservation.getAccommodation() != null) {
+                reservationDTO.setAccommodationDTO(accommodationMapper.entityToDTO(reservation.getAccommodation()));
+            }
+            if (reservation.getPatient() != null) {
+                reservationDTO.setPatientDTO(patientMapper.entityToDTO(reservation.getPatient()));
+            }
             return reservationDTO;
         } else {
             return null;
@@ -57,12 +62,16 @@ public class ReservationMapper implements BaseMapper<Reservation, ReservationDTO
         reservation.setUuid(dto.getUuid());
         reservation.setCreationDate(dto.getCreationDate());
         reservation.setUpdatedDate(dto.getUpdatedDate());
-        reservation.setFl_seatNo(dto.getFl_seatNo());
-        reservation.setAcc_roomNo(dto.getAcc_roomNo());
-        if (dto.getFlightInfoDTO() != null && dto.getAppointmentDTO() != null && dto.getAccommodationDTO() != null && dto.getPatientDTO() != null) {
+        if (dto.getFlightInfoDTO() != null) {
             reservation.setFlightInfo(flightInfoMapper.dtoToEntity(dto.getFlightInfoDTO()));
+        }
+        if (dto.getAppointmentDTO() != null) {
             reservation.setAppointment(appointmentMapper.dtoToEntity(dto.getAppointmentDTO()));
+        }
+        if (dto.getAccommodationDTO() != null) {
             reservation.setAccommodation(accommodationMapper.dtoToEntity(dto.getAccommodationDTO()));
+        }
+        if (dto.getPatientDTO() != null) {
             reservation.setPatient(patientMapper.dtoToEntity(dto.getPatientDTO()));
         }
         return reservation;
@@ -89,12 +98,16 @@ public class ReservationMapper implements BaseMapper<Reservation, ReservationDTO
     @Override
     public Reservation requestDTOToEntity(ReservationRequestDTO reservationRequestDTO) {
         Reservation reservation = new Reservation();
-        reservation.setFl_seatNo(reservationRequestDTO.getFl_seatNo());
-        reservation.setAcc_roomNo(reservationRequestDTO.getAcc_roomNo());
-        if (reservationRequestDTO.getFlightInfoDTO() != null && reservationRequestDTO.getAppointmentDTO() != null && reservationRequestDTO.getAccommodationDTO() != null && reservationRequestDTO.getPatientDTO() != null ) {
+        if (reservationRequestDTO.getFlightInfoDTO() != null) {
             reservation.setFlightInfo(flightInfoMapper.dtoToEntity(reservationRequestDTO.getFlightInfoDTO()));
+        }
+        if (reservationRequestDTO.getAppointmentDTO() != null) {
             reservation.setAppointment(appointmentMapper.dtoToEntity(reservationRequestDTO.getAppointmentDTO()));
+        }
+        if (reservationRequestDTO.getAccommodationDTO() != null) {
             reservation.setAccommodation(accommodationMapper.dtoToEntity(reservationRequestDTO.getAccommodationDTO()));
+        }
+        if (reservationRequestDTO.getPatientDTO() != null) {
             reservation.setPatient(patientMapper.dtoToEntity(reservationRequestDTO.getPatientDTO()));
         }
         return reservation;
@@ -104,7 +117,7 @@ public class ReservationMapper implements BaseMapper<Reservation, ReservationDTO
     public List<Reservation> requestDTOListToEntityList(List<ReservationRequestDTO> reservationRequestDTOS) {
         List<Reservation> reservations = new ArrayList<>();
         for (ReservationRequestDTO reservationRequestDTO : reservationRequestDTOS) {
-                    reservations.add(requestDTOToEntity(reservationRequestDTO));
+            reservations.add(requestDTOToEntity(reservationRequestDTO));
         }
         return reservations;
     }
@@ -112,12 +125,16 @@ public class ReservationMapper implements BaseMapper<Reservation, ReservationDTO
     @Override
     public Reservation requestDTOToExistEntity(ReservationRequestDTO reservationRequestDTO, Reservation entity) {
         Reservation reservation = new Reservation();
-        reservation.setFl_seatNo(reservationRequestDTO.getFl_seatNo());
-        reservation.setAcc_roomNo(reservationRequestDTO.getAcc_roomNo());
-        if (reservationRequestDTO.getFlightInfoDTO() != null && reservationRequestDTO.getAppointmentDTO() != null && reservationRequestDTO.getAccommodationDTO() != null && reservationRequestDTO.getPatientDTO() != null ) {
+        if (reservationRequestDTO.getFlightInfoDTO() != null) {
             reservation.setFlightInfo(flightInfoMapper.dtoToEntity(reservationRequestDTO.getFlightInfoDTO()));
+        }
+        if (reservationRequestDTO.getAppointmentDTO() != null) {
             reservation.setAppointment(appointmentMapper.dtoToEntity(reservationRequestDTO.getAppointmentDTO()));
+        }
+        if (reservationRequestDTO.getAccommodationDTO() != null) {
             reservation.setAccommodation(accommodationMapper.dtoToEntity(reservationRequestDTO.getAccommodationDTO()));
+        }
+        if (reservationRequestDTO.getPatientDTO() != null) {
             reservation.setPatient(patientMapper.dtoToEntity(reservationRequestDTO.getPatientDTO()));
         }
         return reservation;

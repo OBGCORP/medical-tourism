@@ -39,4 +39,11 @@ public class PatientService extends BaseService<Patient, PatientDTO, PatientRequ
         return patients.map(patientMapper::entityToDTO);
     }
 
+    public PatientDTO register(PatientRequestDTO patientRequestDTO) {
+        return null;
+    }
+
+    public PatientDTO login(PatientRequestDTO patientRequestDTO) {
+        return null;
+    }
 }

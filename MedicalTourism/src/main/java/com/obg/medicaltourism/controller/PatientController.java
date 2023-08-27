@@ -8,6 +8,8 @@ import com.obg.medicaltourism.model.requestDTO.PatientRequestDTO;
 import com.obg.medicaltourism.service.PatientService;
 import com.obg.medicaltourism.utility.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +27,16 @@ public class PatientController extends BaseController<Patient, PatientDTO, Patie
     @Override
     protected PatientService getService() {
         return patientService;
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<PatientDTO> register(PatientRequestDTO patientRequestDTO) {
+        return ResponseEntity.ok(patientService.register(patientRequestDTO));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<PatientDTO> login(PatientRequestDTO patientRequestDTO) {
+        return ResponseEntity.ok(patientService.login(patientRequestDTO));
     }
 
 }

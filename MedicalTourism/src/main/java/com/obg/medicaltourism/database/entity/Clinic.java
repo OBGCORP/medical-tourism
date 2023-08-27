@@ -15,10 +15,11 @@ import java.util.List;
 @Table
 @Data
 public class Clinic extends BaseEntity {
-    @Column(nullable = false)
+    @Column
     private String name;
-    @Column(nullable = false)
+    @Column
     private String address;
+    @Column
     private BigDecimal bankAccountBalance;
     @OneToMany
     @JsonIgnore

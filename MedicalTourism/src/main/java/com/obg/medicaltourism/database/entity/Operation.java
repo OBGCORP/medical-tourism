@@ -10,10 +10,10 @@ import lombok.Data;
 @Table
 @Data
 public class Operation extends BaseEntity {
-    @Column(nullable = false)
+    @Column
     private String name;
-    @Column(columnDefinition = "text", nullable = false)
+    @Column(columnDefinition = "text")
     private String description;
-    @Column(nullable = false)
+    @Column
     private Integer treatmentFee;
 }

@@ -35,10 +35,16 @@ public class AppointmentMapper implements BaseMapper<Appointment, AppointmentDTO
         appointmentDTO.setCreationDate(appointment.getCreationDate());
         appointmentDTO.setUpdatedDate(appointment.getUpdatedDate());
         appointmentDTO.setOperationDate(appointment.getOperationDate());
-        if (appointment.getClinic() != null && appointment.getOperation() != null && appointment.getPhysician() != null && appointment.getPatient() != null) {
+        if (appointment.getClinic() != null) {
             appointmentDTO.setClinic(clinicMapper.entityToDTO(appointment.getClinic()));
+        }
+        if (appointment.getOperation() != null) {
             appointmentDTO.setOperation(operationMapper.entityToDTO(appointment.getOperation()));
+        }
+        if (appointment.getPhysician() != null) {
             appointmentDTO.setPhysician(physicianMapper.entityToDTO(appointment.getPhysician()));
+        }
+        if (appointment.getPatient() != null) {
             appointmentDTO.setPatient(patientMapper.entityToDTO(appointment.getPatient()));
         }
         return appointmentDTO;
@@ -52,10 +58,16 @@ public class AppointmentMapper implements BaseMapper<Appointment, AppointmentDTO
         appointment.setCreationDate(dto.getCreationDate());
         appointment.setUpdatedDate(dto.getUpdatedDate());
         appointment.setOperationDate(dto.getOperationDate());
-        if (dto.getClinic() != null && dto.getOperation() != null && dto.getPhysician() != null && dto.getPatient() != null) {
+        if (dto.getClinic() != null) {
             appointment.setClinic(clinicMapper.dtoToEntity(dto.getClinic()));
+        }
+        if (dto.getOperation() != null) {
             appointment.setOperation(operationMapper.dtoToEntity(dto.getOperation()));
+        }
+        if (dto.getPhysician() != null) {
             appointment.setPhysician(physicianMapper.dtoToEntity(dto.getPhysician()));
+        }
+        if (dto.getPatient() != null) {
             appointment.setPatient(patientMapper.dtoToEntity(dto.getPatient()));
         }
         return appointment;
@@ -82,10 +94,18 @@ public class AppointmentMapper implements BaseMapper<Appointment, AppointmentDTO
     @Override
     public Appointment requestDTOToEntity(AppointmentRequestDTO appointmentRequestDTO) {
         Appointment appointment = new Appointment();
-        appointment.setClinic(clinicMapper.dtoToEntity(appointmentRequestDTO.getClinic()));
-        appointment.setOperation(operationMapper.dtoToEntity(appointmentRequestDTO.getOperation()));
-        appointment.setPhysician(physicianMapper.dtoToEntity(appointmentRequestDTO.getPhysician()));
-        appointment.setPatient(patientMapper.dtoToEntity(appointmentRequestDTO.getPatient()));
+        if (appointmentRequestDTO.getClinic() != null) {
+            appointment.setClinic(clinicMapper.dtoToEntity(appointmentRequestDTO.getClinic()));
+        }
+        if (appointmentRequestDTO.getOperation() != null) {
+            appointment.setOperation(operationMapper.dtoToEntity(appointmentRequestDTO.getOperation()));
+        }
+        if (appointmentRequestDTO.getPhysician() != null) {
+            appointment.setPhysician(physicianMapper.dtoToEntity(appointmentRequestDTO.getPhysician()));
+        }
+        if (appointmentRequestDTO.getPatient() != null) {
+            appointment.setPatient(patientMapper.dtoToEntity(appointmentRequestDTO.getPatient()));
+        }
         appointment.setOperationDate(appointmentRequestDTO.getOperationDate());
         return appointment;
     }
@@ -101,10 +121,18 @@ public class AppointmentMapper implements BaseMapper<Appointment, AppointmentDTO
 
     @Override
     public Appointment requestDTOToExistEntity(AppointmentRequestDTO appointmentRequestDTO, Appointment appointment) {
-        appointment.setClinic(clinicMapper.dtoToEntity(appointmentRequestDTO.getClinic()));
-        appointment.setOperation(operationMapper.dtoToEntity(appointmentRequestDTO.getOperation()));
-        appointment.setPhysician(physicianMapper.dtoToEntity(appointmentRequestDTO.getPhysician()));
-        appointment.setPatient(patientMapper.dtoToEntity(appointmentRequestDTO.getPatient()));
+        if (appointmentRequestDTO.getClinic() != null) {
+            appointment.setClinic(clinicMapper.dtoToEntity(appointmentRequestDTO.getClinic()));
+        }
+        if (appointmentRequestDTO.getOperation() != null) {
+            appointment.setOperation(operationMapper.dtoToEntity(appointmentRequestDTO.getOperation()));
+        }
+        if (appointmentRequestDTO.getPhysician() != null) {
+            appointment.setPhysician(physicianMapper.dtoToEntity(appointmentRequestDTO.getPhysician()));
+        }
+        if (appointmentRequestDTO.getPatient() != null) {
+            appointment.setPatient(patientMapper.dtoToEntity(appointmentRequestDTO.getPatient()));
+        }
         appointment.setOperationDate(appointmentRequestDTO.getOperationDate());
         return appointment;
     }

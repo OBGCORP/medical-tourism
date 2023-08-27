@@ -7,6 +7,7 @@ import lombok.Data;
 public class AccommodationDTO extends BaseDTO {
     private String name;
     private String address;
+    private Short roomNumber;
     private Integer cost;
     private PatientDTO patient;
 }

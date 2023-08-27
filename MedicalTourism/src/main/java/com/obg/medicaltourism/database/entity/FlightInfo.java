@@ -14,21 +14,23 @@ import java.util.Date;
 @Table
 @Data
 public class FlightInfo extends BaseEntity {
-    @Column(nullable = false)
+    @Column
     private String airline;
-    @Column(nullable = false)
+    @Column
     private Integer flightNumber;
-    @Column(nullable = false)
+    @Column
+    private Short seatNumber;
+    @Column
     private String departureLocation;
-    @Column(nullable = false)
+    @Column
     private String arrivalLocation;
-    @Column(nullable = false)
+    @Column
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date date;
-    @Column(nullable = false)
+    @Column
     private Integer price;
     @OneToOne
-    @JoinColumn(name = "patient_id", nullable = false)
+    @JoinColumn(name = "patient_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Patient patient;

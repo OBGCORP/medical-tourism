@@ -48,8 +48,12 @@ public class ClinicMapper implements BaseMapper<Clinic, ClinicDTO, ClinicRequest
             clinicDTO.setName(clinic.getName());
             clinicDTO.setAddress(clinic.getAddress());
             clinicDTO.setBankAccountBalance(clinic.getBankAccountBalance());
-            clinicDTO.setPhysicians(physicianMapper.entityListToDTOList(clinic.getPhysicians()));
-            clinicDTO.setOperations(operationMapper.entityListToDTOList(clinic.getOperations()));
+            if (clinic.getPhysicians() != null) {
+                clinicDTO.setPhysicians(physicianMapper.entityListToDTOList(clinic.getPhysicians()));
+            }
+            if (clinic.getOperations() != null) {
+                clinicDTO.setOperations(operationMapper.entityListToDTOList(clinic.getOperations()));
+            }
             return clinicDTO;
         } else {
             return null;
@@ -66,8 +70,10 @@ public class ClinicMapper implements BaseMapper<Clinic, ClinicDTO, ClinicRequest
         clinic.setName(dto.getName());
         clinic.setAddress(dto.getAddress());
         clinic.setBankAccountBalance(dto.getBankAccountBalance());
-        if (dto.getPhysicians() != null && dto.getOperations() != null) {
+        if (dto.getPhysicians() != null) {
             clinic.setPhysicians(physicianMapper.dtoListToEntityList(dto.getPhysicians()));
+        }
+        if (dto.getOperations() != null) {
             clinic.setOperations(operationMapper.dtoListToEntityList(dto.getOperations()));
         }
         return clinic;
@@ -97,8 +103,12 @@ public class ClinicMapper implements BaseMapper<Clinic, ClinicDTO, ClinicRequest
         clinic.setName(clinicRequestDTO.getName());
         clinic.setAddress(clinicRequestDTO.getAddress());
         clinic.setBankAccountBalance(clinicRequestDTO.getBankAccountBalance());
-        clinic.setPhysicians(physicianMapper.dtoListToEntityList(clinicRequestDTO.getPhysicians()));
-        clinic.setOperations(operationMapper.dtoListToEntityList(clinicRequestDTO.getOperations()));
+        if (clinicRequestDTO.getPhysicians() != null) {
+            clinic.setPhysicians(physicianMapper.dtoListToEntityList(clinicRequestDTO.getPhysicians()));
+        }
+        if (clinicRequestDTO.getOperations() != null) {
+            clinic.setOperations(operationMapper.dtoListToEntityList(clinicRequestDTO.getOperations()));
+        }
         return clinic;
     }
 
@@ -116,8 +126,12 @@ public class ClinicMapper implements BaseMapper<Clinic, ClinicDTO, ClinicRequest
         clinic.setName(clinicRequestDTO.getName());
         clinic.setAddress(clinicRequestDTO.getAddress());
         clinic.setBankAccountBalance(clinicRequestDTO.getBankAccountBalance());
-        clinic.setPhysicians(physicianMapper.dtoListToEntityList(clinicRequestDTO.getPhysicians()));
-        clinic.setOperations(operationMapper.dtoListToEntityList(clinicRequestDTO.getOperations()));
+        if (clinicRequestDTO.getPhysicians() != null) {
+            clinic.setPhysicians(physicianMapper.dtoListToEntityList(clinicRequestDTO.getPhysicians()));
+        }
+        if (clinicRequestDTO.getOperations() != null) {
+            clinic.setOperations(operationMapper.dtoListToEntityList(clinicRequestDTO.getOperations()));
+        }
         return clinic;
     }
 }

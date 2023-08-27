@@ -31,7 +31,10 @@ public class AccommodationMapper implements BaseMapper<Accommodation, Accommodat
         accommodationDTO.setName(accommodation.getName());
         accommodationDTO.setAddress(accommodation.getAddress());
         accommodationDTO.setCost(accommodation.getCost());
-        accommodationDTO.setPatient(patientMapper.entityToDTO(accommodation.getPatient()));
+        accommodationDTO.setRoomNumber(accommodation.getRoomNumber());
+        if (accommodation.getPatient() != null) {
+            accommodationDTO.setPatient(patientMapper.entityToDTO(accommodation.getPatient()));
+        }
         return accommodationDTO;
     }
 
@@ -45,6 +48,7 @@ public class AccommodationMapper implements BaseMapper<Accommodation, Accommodat
         accommodation.setName(dto.getName());
         accommodation.setAddress(dto.getAddress());
         accommodation.setCost(dto.getCost());
+        accommodation.setRoomNumber(dto.getRoomNumber());
         if (dto.getPatient() != null) {
             accommodation.setPatient(patientMapper.dtoToEntity(dto.getPatient()));
         }
@@ -79,7 +83,10 @@ public class AccommodationMapper implements BaseMapper<Accommodation, Accommodat
         accommodation.setName(accommodationRequestDTO.getName());
         accommodation.setAddress(accommodationRequestDTO.getAddress());
         accommodation.setCost(accommodationRequestDTO.getCost());
-        accommodation.setPatient(patientMapper.dtoToEntity(accommodationRequestDTO.getPatient()));
+        accommodation.setRoomNumber(accommodationRequestDTO.getRoomNumber());
+        if (accommodationRequestDTO.getPatient() != null) {
+            accommodation.setPatient(patientMapper.dtoToEntity(accommodationRequestDTO.getPatient()));
+        }
         return accommodation;
     }
 
