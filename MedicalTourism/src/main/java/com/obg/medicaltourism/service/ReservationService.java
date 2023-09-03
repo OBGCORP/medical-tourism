@@ -11,7 +11,11 @@ import com.obg.medicaltourism.model.requestDTO.ReservationRequestDTO;
 import com.obg.medicaltourism.model.requestDTO.SelectAccommodationRequestDTO;
 import com.obg.medicaltourism.model.requestDTO.SelectFlightRequestDTO;
 import com.obg.medicaltourism.utility.BaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,6 +23,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
+@EnableScheduling
 public class ReservationService extends BaseService<Reservation, ReservationDTO, ReservationRequestDTO, ReservationMapper, ReservationRepository> {
     private final ReservationMapper reservationMapper;
     private final ReservationRepository reservationRepository;
@@ -28,16 +33,9 @@ public class ReservationService extends BaseService<Reservation, ReservationDTO,
     private final OperationRepository operationRepository;
     private final ClinicMapper clinicMapper;
     private final ClinicRepository clinicRepository;
-
     private final ClinicService clinicService;
     private final PhysicianMapper physicianMapper;
-    private final PhysicianRepository physicianRepository;
-    private final FlightInfoMapper flightInfoMapper;
-    private final FlightInfoRepository flightInfoRepository;
-    private final AccommodationMapper accommodationMapper;
-    private final AccommodationRepository accommodationRepository;
-    private final AppointmentMapper appointmentMapper;
-    private final AppointmentRepository appointmentRepository;
+    private static final Logger log = LoggerFactory.getLogger(ReservationService.class);
 
     @Autowired
     public ReservationService(ReservationMapper reservationMapper,
@@ -49,14 +47,7 @@ public class ReservationService extends BaseService<Reservation, ReservationDTO,
                               ClinicMapper clinicMapper,
                               ClinicRepository clinicRepository,
                               ClinicService clinicService,
-                              PhysicianMapper physicianMapper,
-                              PhysicianRepository physicianRepository,
-                              FlightInfoMapper flightInfoMapper,
-                              FlightInfoRepository flightInfoRepository,
-                              AccommodationMapper accommodationMapper,
-                              AccommodationRepository accommodationRepository,
-                              AppointmentMapper appointmentMapper,
-                              AppointmentRepository appointmentRepository) {
+                              PhysicianMapper physicianMapper) {
         this.reservationMapper = reservationMapper;
         this.reservationRepository = reservationRepository;
         this.patientMapper = patientMapper;
@@ -67,13 +58,6 @@ public class ReservationService extends BaseService<Reservation, ReservationDTO,
         this.clinicRepository = clinicRepository;
         this.clinicService = clinicService;
         this.physicianMapper = physicianMapper;
-        this.physicianRepository = physicianRepository;
-        this.flightInfoMapper = flightInfoMapper;
-        this.flightInfoRepository = flightInfoRepository;
-        this.accommodationMapper = accommodationMapper;
-        this.accommodationRepository = accommodationRepository;
-        this.appointmentMapper = appointmentMapper;
-        this.appointmentRepository = appointmentRepository;
     }
 
     @Override
@@ -193,6 +177,20 @@ public class ReservationService extends BaseService<Reservation, ReservationDTO,
             return Optional.of(reservationDTO);
         } else {
             return Optional.empty();
+        }
+    }
+
+    @Scheduled(fixedRate = 100000)
+    public void checkReservation() {
+        for (Reservation reservation : getRepository().findAll()) {
+            if (reservation.getAppointment() == null ||
+                    reservation.getAppointment().getClinic() == null ||
+                    reservation.getAppointment().getPhysician() == null ||
+                    reservation.getFlightInfo() == null ||
+                    reservation.getAccommodation() == null) {
+                getRepository().delete(reservation);
+                log.info("Reservation with id: " + reservation.getId() + " is deleted.");
+            }
         }
     }
 }
