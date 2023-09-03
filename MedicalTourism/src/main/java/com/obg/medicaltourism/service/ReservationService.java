@@ -14,6 +14,7 @@ import com.obg.medicaltourism.utility.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Optional;
 
@@ -91,12 +92,17 @@ public class ReservationService extends BaseService<Reservation, ReservationDTO,
         if (operation.isPresent() && patient.isPresent()) {
             ReservationDTO reservationDTO = new ReservationDTO();
             AppointmentDTO appointmentDTO = new AppointmentDTO();
-            appointmentRepository.save(appointmentMapper.dtoToEntity(appointmentDTO));
             reservationDTO.setAppointmentDTO(appointmentDTO);
             reservationDTO.setPatientDTO(patientMapper.entityToDTO(patient.get()));
             reservationDTO.getAppointmentDTO().setOperationDate(operationDate);
             reservationDTO.getAppointmentDTO().setOperation(operationMapper.entityToDTO(operation.get()));
             reservationDTO.getAppointmentDTO().setPatient(reservationDTO.getPatientDTO());
+
+            reservationDTO.getPatientDTO().setBankAccountBalance(
+                    reservationDTO.getPatientDTO().getBankAccountBalance().subtract(
+                            BigDecimal.valueOf(reservationDTO.getAppointmentDTO().getOperation().getTreatmentFee())
+                    ));
+
             getRepository().save(getMapper().dtoToEntity(reservationDTO));
             return Optional.of(reservationDTO);
         } else {
@@ -110,6 +116,11 @@ public class ReservationService extends BaseService<Reservation, ReservationDTO,
         if (reservation.isPresent() && clinic.isPresent()) {
             ReservationDTO reservationDTO = getMapper().entityToDTO(reservation.get());
             reservationDTO.getAppointmentDTO().setClinic(clinicMapper.entityToDTO(clinic.get()));
+
+            reservationDTO.getAppointmentDTO().getClinic().setBankAccountBalance(
+                    reservationDTO.getAppointmentDTO().getClinic().getBankAccountBalance()
+                            .add(BigDecimal.valueOf(reservationDTO.getAppointmentDTO().getOperation().getTreatmentFee())));
+
             getRepository().save(getMapper().dtoToEntity(reservationDTO));
             return Optional.of(reservationDTO);
         } else {
@@ -139,7 +150,6 @@ public class ReservationService extends BaseService<Reservation, ReservationDTO,
         if (reservation.isPresent()) {
             ReservationDTO reservationDTO = getMapper().entityToDTO(reservation.get());
             FlightInfoDTO flightInfoDTO = new FlightInfoDTO();
-            flightInfoRepository.save(flightInfoMapper.dtoToEntity(flightInfoDTO));
             reservationDTO.setFlightInfoDTO(flightInfoDTO);
             reservationDTO.getFlightInfoDTO().setPatient(reservationDTO.getPatientDTO());
             reservationDTO.getFlightInfoDTO().setAirline(selectFlightRequestDTO.getAirline());
@@ -149,6 +159,12 @@ public class ReservationService extends BaseService<Reservation, ReservationDTO,
             reservationDTO.getFlightInfoDTO().setDate(selectFlightRequestDTO.getDate());
             reservationDTO.getFlightInfoDTO().setPrice(selectFlightRequestDTO.getPrice());
             reservationDTO.getFlightInfoDTO().setSeatNumber(selectFlightRequestDTO.getSeatNumber());
+
+            reservationDTO.getPatientDTO().setBankAccountBalance(
+                    reservationDTO.getPatientDTO().getBankAccountBalance().subtract(
+                            BigDecimal.valueOf(reservationDTO.getFlightInfoDTO().getPrice())
+                    ));
+
             getRepository().save(getMapper().dtoToEntity(reservationDTO));
             return Optional.of(reservationDTO);
         } else {
@@ -161,13 +177,18 @@ public class ReservationService extends BaseService<Reservation, ReservationDTO,
         if (reservation.isPresent()) {
             ReservationDTO reservationDTO = getMapper().entityToDTO(reservation.get());
             AccommodationDTO accommodationDTO = new AccommodationDTO();
-            accommodationRepository.save(accommodationMapper.dtoToEntity(accommodationDTO));
             reservationDTO.setAccommodationDTO(accommodationDTO);
             reservationDTO.getAccommodationDTO().setPatient(reservationDTO.getPatientDTO());
             reservationDTO.getAccommodationDTO().setCost(selectAccommodationRequestDTO.getCost());
             reservationDTO.getAccommodationDTO().setName(selectAccommodationRequestDTO.getName());
             reservationDTO.getAccommodationDTO().setAddress(selectAccommodationRequestDTO.getAddress());
             reservationDTO.getAccommodationDTO().setRoomNumber(selectAccommodationRequestDTO.getRoomNumber());
+
+            reservationDTO.getPatientDTO().setBankAccountBalance(
+                    reservationDTO.getPatientDTO().getBankAccountBalance().subtract(
+                            BigDecimal.valueOf(reservationDTO.getAccommodationDTO().getCost())
+                    ));
+
             getRepository().save(getMapper().dtoToEntity(reservationDTO));
             return Optional.of(reservationDTO);
         } else {
