@@ -9,7 +9,7 @@ import lombok.Data;
 @Entity
 @Table
 @Data
-public class Physician extends BaseEntity {
+public class Physician extends BaseEntity{
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)

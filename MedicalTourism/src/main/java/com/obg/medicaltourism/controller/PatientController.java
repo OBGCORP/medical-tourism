@@ -29,14 +29,4 @@ public class PatientController extends BaseController<Patient, PatientDTO, Patie
         return patientService;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<PatientDTO> register(PatientRequestDTO patientRequestDTO) {
-        return ResponseEntity.ok(patientService.register(patientRequestDTO));
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<PatientDTO> login(PatientRequestDTO patientRequestDTO) {
-        return ResponseEntity.ok(patientService.login(patientRequestDTO));
-    }
-
 }
